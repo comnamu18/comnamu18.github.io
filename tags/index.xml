@@ -2,9 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on computer_namu</title>
-    <link>https://comnamu18.com/tags/</link>
+    <link>https://comnamu18.github.io/tags/</link>
     <description>Recent content in Tags on computer_namu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ko-kr</language><atom:link href="https://comnamu18.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>ko-kr</language>
+    
+	<atom:link href="https://comnamu18.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
   </channel>
 </rss>
