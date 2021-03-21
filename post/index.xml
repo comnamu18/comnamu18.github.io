@@ -6,18 +6,18 @@
     <description>Recent content in Posts on computer_namu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 14 Mar 2021 02:31:10 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 17 Mar 2021 23:21:10 +0900</lastBuildDate>
     
 	<atom:link href="https://comnamu18.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hello_world</title>
-      <link>https://comnamu18.github.io/post/hello_world/</link>
-      <pubDate>Sun, 14 Mar 2021 02:31:10 +0900</pubDate>
+      <title>MLOps 정의 알아보기</title>
+      <link>https://comnamu18.github.io/post/devops/</link>
+      <pubDate>Wed, 17 Mar 2021 23:21:10 +0900</pubDate>
       
-      <guid>https://comnamu18.github.io/post/hello_world/</guid>
-      <description>Testing for uploading Github IO</description>
+      <guid>https://comnamu18.github.io/post/devops/</guid>
+      <description>MLOps에 대해 알아보기 위해 DevOps의 정의부터 시작해서 Google 에서 제시한 MLOps 와 관련된 내용에 대해서 정리하였습니다.</description>
     </item>
     
   </channel>

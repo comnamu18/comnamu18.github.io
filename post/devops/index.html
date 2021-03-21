@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://comnamu18.github.io/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/github.min.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/github-style.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/light.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/dark.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/syntax.css' />
+    <title>MLOps 정의 알아보기 - computer_namu</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github.png'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="MLOps에 대해 알아보기 위해 DevOps의 정의부터 시작해서 Google 에서 제시한 MLOps 와 관련된 내용에 대해서 정리하였습니다." />
+<meta name="keywords"
+  content='DL, ML, Prototyping' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://comnamu18.github.io/post/devops/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="MLOps 정의 알아보기 - computer_namu" />
+<meta name="twitter:description"
+  content="MLOps에 대해 알아보기 위해 DevOps의 정의부터 시작해서 Google 에서 제시한 MLOps 와 관련된 내용에 대해서 정리하였습니다." />
+<meta name="twitter:site" content="https://comnamu18.github.io" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="https://comnamu18.github.io">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="MLOps 정의 알아보기 - computer_namu">
+<meta property="og:description"
+  content="MLOps에 대해 알아보기 위해 DevOps의 정의부터 시작해서 Google 에서 제시한 MLOps 와 관련된 내용에 대해서 정리하였습니다." />
+<meta property="og:url" content="https://comnamu18.github.io/post/devops/" />
+<meta property="og:site_name" content="MLOps 정의 알아보기" />
+<meta property="og:image"
+  content="https://comnamu18.github.io">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2021-03-17 23:21:10 &#43;0900 KST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://comnamu18.github.io">
+        <svg class="octicon" height="32" viewBox="0 0 16 16" version="1.1" width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd"
+            d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://comnamu18.github.io">
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://comnamu18.github.io">
+        <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+          width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+  
+<div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://comnamu18.github.io">
+                  <img class=" avatar-user"
+                    src="https://comnamu18.github.io/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://comnamu18.github.io">KimSangHeon</a></span><span
+                    class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
+                      href="https://comnamu18.github.io/post/devops/">MLOps 정의 알아보기</a></strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Wed, 17 Mar 2021 23:21:10 &#43;0900"
+                    class="no-wrap">
+                    Wed, 17 Mar 2021 23:21:10 &#43;0900</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Sat, 20 Mar 2021 23:00:44 &#43;0900"
+                    class="no-wrap">
+                    Sat, 20 Mar 2021 23:00:44 &#43;0900</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div class="file-header d-flex flex-md-items-center flex-items-start">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    1020 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5">
+                <article class="markdown-body entry-content container-lg"><h1 id="1-devops">1. DevOps?</h1>
+<h2 id="11-devops의-정의">1.1. DevOps의 정의</h2>
+<ul>
+<li>
+<p><a href="https://ko.wikipedia.org/wiki/%EB%8D%B0%EB%B8%8C%EC%98%B5%EC%8A%A4">위키백과</a> : 데브옵스(DevOps)는 소프트웨어의 개발(Development)과 운영(Operations)의 합성어로서, 소프트웨어 개발자와 정보기술 전문가 간의 소통, 협업 및 통합을 강조하는 개발 환경이나 문화를 말한다. 데브옵스는 소프트웨어 개발조직과 운영조직간의 상호 의존적 대응이며 조직이 소프트웨어 제품과 서비스를 빠른 시간에 개발 및 배포하는 것을 목적으로 한다.</p>
+</li>
+<li>
+<p><a href="https://azure.microsoft.com/ko-kr/overview/what-is-devops/">MS Azure</a> : 개발(Dev)과 운영(Ops)의 합성어인 DevOps는 고객에게 지속적으로 가치를 제공하도록 지원하는 사람, 프로세스 및 기술의 합집합입니다.</p>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/ko/devops/what-is-devops/">AWS</a> : DevOps는 애플리케이션과 서비스를 빠른 속도로 제공할 수 있도록 조직의 역량을 향상시키는 문화 철학, 방식 및 도구의 조합입니다. 기존의 소프트웨어 개발 및 인프라 관리 프로세스를 사용하는 조직보다 제품을 더 빠르게 혁신하고 개선할 수 있습니다.</p>
+</li>
+</ul>
+<h2 id="12-devops-구성요소">1.2. DevOps 구성요소</h2>
+<ol>
+<li>
+<p>CI(Continuous Integreation) : 항상 코드가 안정화된 상태를 유지할 수 있도록, 새로운 코드가 커밋될 때마다 자동화된 테스트가 실행되야 한다.</p>
+</li>
+<li>
+<p>CD(Continuous Deployment or Delivery) : Production에 릴리스하기 위한 코드 변경이 자동으로 빌드, 테스트 및 준비되는 개발 방식을 의미한다. 언제나 즉시 배포할 수 있고, 표준화된 테스트 프로세스를 통과한 아티팩트를 보유하게 된다.</p>
+</li>
+<li>
+<p>지속적인 모니터링 : 애플리케이션을 실행하는 기본 인프라부터 소프트웨어 구성요소까지 전체 애플리케이션 스택의 성능과 상태에 대한 완전한 실시간 가시성을 갖는 것을 의미한다.</p>
+</li>
+<li>
+<p>코드형 인프라(Infrastructure as Code) : 버전 관리 및 지속적 통합(CI)를 통해서 인프라를 관리하는 방식. 코드를 통해 인프라가 정의되어 인프라와 서버를 표준화된 패턴을 사용하여 배포, 업데이트, 복제 등이 가능</p>
+</li>
+</ol>
+<p>=============</p>
+<h1 id="2-mlopshttpscloudgooglecomsolutionsmachine-learningmlops-continuous-delivery-and-automation-pipelines-in-machine-learninghlko">2. <a href="https://cloud.google.com/solutions/machine-learning/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning?hl=ko">MLOps</a>?</h1>
+<h2 id="21-mlops-level-0">2.1 MLOps Level 0</h2>
+<p><img src="/images/devops/1.svg" alt="MLOpslevel0"></p>
+<ul>
+<li>
+<p>많은 팀에서 ML 연구원은 있지만, 훈련된 ML 모델을 빌드하고 배포하는 과정은 위와 같이 완전한 수동으로 이루어 집니다.</p>
+</li>
+<li>
+<p>프로덕션 단계에서 적극적인 품질 모니터링 필요</p>
+</li>
+<li>
+<p>프로덕션 모델을 자주 재학습 및 재배포 할 수 있어야 함</p>
+</li>
+<li>
+<p>최신 아이디어와 기술의 발전을 적용하기 위해 새로운 구현의 시도가 필요</p>
+</li>
+</ul>
+<h2 id="22-mlops-level-1">2.2 MLOps Level 1</h2>
+<p><img src="/images/devops/2.svg" alt="MLOpslevel1"></p>
+<ul>
+<li>
+<p>ML 파이프라인을 자동화하여 모델을 지속적으로 학습시키는 것입니다. 새 데이터를 사용하여 프로덕션 단계에서 모델을 재학습시키는 프로세스를 자동화하려면 파이프라인 트리거 및 메타데이터 관리뿐만 아니라 자동화된 데이터 및 모델 검증 단계를 파이프라인에 도입해야 합니다.</p>
+</li>
+<li>
+<p>데이터 및 모델 검증</p>
+</li>
+<li>
+<p>특성 저장소</p>
+</li>
+<li>
+<p>메타데이터 관리</p>
+</li>
+<li>
+<p>ML 파이프라인 트리거</p>
+</li>
+</ul>
+<h2 id="23-mlops-level-2">2.3 MLOps Level 2</h2>
+<p><img src="/images/devops/3.svg" alt="MLOpslevel2"></p>
+<ul>
+<li>소스 제어, 서비스 테스트 및 빌드, 배포 서비스, 모델 레지스트리, 특성 저장소, ML 메타데이터 저장소, ML 파이프라인 조정자</li>
+</ul>
+<p><img src="/images/devops/4.svg" alt="MLOpslevel2Features"></p>
+</article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://comnamu18.github.io">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="https://comnamu18.github.io/js/github-style.js"></script>
+
+
+
+</html>
