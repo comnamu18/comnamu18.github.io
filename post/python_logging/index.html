@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://comnamu18.github.io/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/github.min.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/github-style.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/light.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/dark.css' />
+    <link rel="stylesheet" href='https://comnamu18.github.io/css/syntax.css' />
+    <title>Python_logging - computer_namu</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github.png'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="Python의 logging 라이브러리에 대한 고찰" />
+<meta name="keywords"
+  content='DL, ML, Prototyping' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://comnamu18.github.io/post/python_logging/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Python_logging - computer_namu" />
+<meta name="twitter:description"
+  content="Python의 logging 라이브러리에 대한 고찰" />
+<meta name="twitter:site" content="https://comnamu18.github.io" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="https://comnamu18.github.io">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Python_logging - computer_namu">
+<meta property="og:description"
+  content="Python의 logging 라이브러리에 대한 고찰" />
+<meta property="og:url" content="https://comnamu18.github.io/post/python_logging/" />
+<meta property="og:site_name" content="Python_logging" />
+<meta property="og:image"
+  content="https://comnamu18.github.io">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2021-04-10 21:40:59 &#43;0900 KST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://comnamu18.github.io">
+        <svg class="octicon" height="32" viewBox="0 0 16 16" version="1.1" width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd"
+            d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://comnamu18.github.io">
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://comnamu18.github.io">
+        <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+          width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+  
+<div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://comnamu18.github.io">
+                  <img class=" avatar-user"
+                    src="https://comnamu18.github.io/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://comnamu18.github.io">KimSangHeon</a></span><span
+                    class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
+                      href="https://comnamu18.github.io/post/python_logging/">Python_logging</a></strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Sat, 10 Apr 2021 21:40:59 &#43;0900"
+                    class="no-wrap">
+                    Sat, 10 Apr 2021 21:40:59 &#43;0900</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Sun, 11 Apr 2021 14:45:41 &#43;0900"
+                    class="no-wrap">
+                    Sun, 11 Apr 2021 14:45:41 &#43;0900</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div class="file-header d-flex flex-md-items-center flex-items-start">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    2420 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5">
+                <article class="markdown-body entry-content container-lg"><h1 id="한줄-요약">한줄 요약</h1>
+<p>Python logger는 계층적 구조를 가지고 있는 표준 라이브러리로, Singleton pattern이 적용되어 있다.</p>
+<h2 id="logging-이란">logging 이란?</h2>
+<p>로깅은 어떤 소프트웨어가 실행될 때 발생하는 이벤트를 추적하는 수단입니다. 소프트웨어 개발자는 코드에 로깅 호출을 추가하여 특정 이벤트가 발생했음을 나타냅니다. 이벤트는 선택적으로 가변 데이터 (즉, 이벤트 발생마다 잠재적으로 다른 데이터)를 포함할 수 있는 설명 메시지로 기술됩니다. 이벤트는 또한 개발자가 이벤트에 부여한 중요도를 가지고 있습니다; 중요도는 수준(level) 또는 심각도(severity) 라고도 부를 수 있습니다. - <a href="https://docs.python.org/ko/3/howto/logging.html#logging-basic-tutorial">파이썬 로깅 HOWTO</a></p>
+<p>프로그램에서 발생하는 이벤트(결과 혹은 에러 메세지)를 추적하기 위해 사용하는 수단이라고 정리 할 수 있을 것 같습니다.</p>
+<h2 id="logging은-왜-쓰나요">logging은 왜 쓰나요?</h2>
+<p>프로그램의 문제를 추적하기 위해 가장 기본적으로는 print문을 사용하여 console창에 출력되는 내용을 보는 방법이 있습니다. 그러나 복잡한 프로그램일수록, 간단한 print문보다는 logging 라이브러리를 선호하고 권장하는데, 그 이유는 아래와 같은 logging 라이브러리의 장점 때문 입니다.</p>
+<ol>
+<li>출력해야되는 정보를 쉽게 생성 및 출력할 수 있다.</li>
+<li>단순 콘솔화면에 출력하는 것 뿐만 아니라, log file이나 socket등 다양한 곳에 기록할 수 있다.</li>
+<li>위험성(DEBUG, WARN 등등)에 따라, 다르게 출력할 수 있다.</li>
+</ol>
+<h2 id="logging-singleton-pattern">logging singleton pattern?</h2>
+<p>logging에 대해서 배우다보니, python의 logging 라이브러리는 <a href="https://ko.wikipedia.org/wiki/%EC%8B%B1%EA%B8%80%ED%84%B4_%ED%8C%A8%ED%84%B4">singleton pattern</a>이라고 합니다.(<a href="https://stackoverflow.com/a/7341564">링크참고</a>) 그러나 실제로 logging 라이브러리를 사용하다보면, 이 설명이 매우 이해가 안 가는데, 실험을 통해 왜 python logging이 singleton pattern이 적용되어 있다고 하는지에 대해 배워보겠습니다.</p>
+<h3 id="실험1-root-logger를-통한-싱글톤-확인">실험1. Root Logger를 통한 싱글톤 확인</h3>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">logger</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">def</span> <span class="nf">getCustomLogger</span><span class="p">():</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span>
+    <span class="s1">&#39;</span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="n">stream_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+    <span class="n">stream_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">stream_handler</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">logger</span>
+</code></pre></div><p>logging 라이브러리의 getLogger를 통해 logger 인스턴스를 호출할 수 있는데, 이때 parameter를 아무것도 전달하지 않을경우, 자동적으로 root에 해당하는 logger를 반환해줍니다.
+위와 같이 logger를 생성하는 코드를 만들고, 다른 모듈에서 생성된 logger의 <a href="https://docs.python.org/ko/3/library/functions.html#id">instance id</a> 를 확인해보겠습니다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">main</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">from</span> <span class="nn">logger</span> <span class="kn">import</span> <span class="n">getCustomLogger</span>
+<span class="kn">import</span> <span class="nn">testA</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">getCustomLogger</span><span class="p">()</span>
+    <span class="n">logger_id</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">logger</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Initiating Logger : {logger_id}&#34;</span><span class="p">)</span>
+    <span class="n">testA</span><span class="o">.</span><span class="n">testA</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">testA</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">def</span> <span class="nf">testA</span><span class="p">(</span><span class="n">logger</span><span class="p">):</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+    <span class="n">logger_id</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">logger</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;testA Logger : {logger_id}&#34;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">&gt;&gt;&gt; python main.py
+main.py:7 - root - Initiating Logger : 0x7fbac5d4e340
+testA.py:6 - root - testA Logger : 0x7fbac5d4e340
+</code></pre></div><p>다른 모듈에서 발생된 debug 이벤트에 대해서, 각각 알맞는 filename과 lineno를 가진 log가 동일한 logger instance id와 logger 이름을 가진 객체에서 부터 출력됨을 확인 할 수 있습니다.</p>
+<h3 id="실험-2-각기-다른-moudle-이름을-통한-logger-생성">실험 2. 각기 다른 Moudle 이름을 통한 logger 생성</h3>
+<p>위에 1까지만 보면 설명대로 logging은 싱글톤 패턴이 맞는데? 라고 하실 수 있겠지만, 실제로 프로그램을 사용하다 보면 예상치 못한 결과물이 종종 나옵니다. Root의 logger를 사용하지 않고, 각 모듈별로 logger를 설정할 경우 이런 경우가 발생합니다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">logger</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">def</span> <span class="nf">getCustomLogger</span><span class="p">(</span><span class="n">modulename</span><span class="p">):</span>
+    
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">modulename</span><span class="p">)</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span>
+    <span class="s1">&#39;</span><span class="si">%(filename)s</span><span class="s1">:</span><span class="si">%(lineno)s</span><span class="s1"> - </span><span class="si">%(module)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="n">stream_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+    <span class="n">stream_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">stream_handler</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">logger</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">main</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">from</span> <span class="nn">logger</span> <span class="kn">import</span> <span class="n">getCustomLogger</span>
+<span class="kn">import</span> <span class="nn">testA</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">getCustomLogger</span><span class="p">(</span><span class="s2">&#34;메인모듈&#34;</span><span class="p">)</span>
+    <span class="n">logger_id</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">logger</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Initiating Logger : {logger_id}&#34;</span><span class="p">)</span>
+    <span class="n">testA</span><span class="o">.</span><span class="n">testA</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">testA</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">def</span> <span class="nf">testA</span><span class="p">(</span><span class="n">logger</span><span class="p">):</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&#34;테스트A&#34;</span><span class="p">)</span>
+    <span class="n">logger_id</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">logger</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;testA Logger : {logger_id}&#34;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">&gt;&gt;&gt; python main.py
+main.py:7 - main - Initiating Logger : 0x7fcfa128a070
+</code></pre></div><p>testA.py의 testA의 로깅이 누락되었다. Logging의 Logger는 singleton pattern이 적용되었으니, Main모듈에서 설정한 handler가 적용되서, 테스트A라는 이름의 logger를 호출해도 적용되어야 하는게 아닌가? 라는 의문이 생기지만, logging.getLogger를 통해서 테스트A라는 이름을 가진 logger를 생성할 경우, &ldquo;메인모듈&quot;에서 생성된 logger handler가 적용되지 않아 테스트A에 정상적인 로그가 발생하지 않은 것이다. 이를 확인하고 싶으면 아래와 같은 코드를 추가하여 시도해보면 된다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">testA</span><span class="o">.</span><span class="n">py</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;testA Logger : {logger_id}&#34;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">&gt;&gt;&gt; python main.py
+main.py:7 - main - Initiating Logger : 0x7fea7479a070
+testA Logger : 0x7fea74659160
+</code></pre></div><p>다른 logger 인스턴스가 적용되어 포멧팅이 유지가 안되는 것을 알 수 있다.</p>
+<h3 id="설명-singleton-이라매-modulename은-왜-쓰는-건데">설명. Singleton 이라매? modulename은 왜 쓰는 건데??</h3>
+<p>2번의 상황이 당연하게 느껴질 수도 있고, 복잡하게 느껴질 수도 있는데 정리해보자면 아래의 그림과 같은 상황이다.</p>
+<p><img src="/images/python_logging/test.png" alt="logging0.png"></p>
+<p>맨위 요약에 정리하였듯, Python logging은 계층적 구조를 가진다. getLogger를 통해서 logger 인스턴스를 생성하고 이때 parameter로 모듈이름을 주면, .을 기준으로 모듈의 계층을 만들어 생성한다. 가장 기본적인 Root를 바탕으로, 새로운 모듈이름이 들어오면, root의 자식으로 생성되는 방식이다. 2번의 상황에서 &ldquo;메인모듈&quot;에서만 handler 설정을 하다보니, 메인모듈에서 설정한 formater와 같은 설정이 테스트A에선 적용되지 않은 것이다.</p>
+<p>Singleton Pattern과 관련하여 헷갈린 부분을 바로잡자면, 모든 Logger가 단 하나의 instance인건 아니고, 같은 모듈이름을 가진 logger을 요청할 경우, singleton 패턴을 적용하여 이미 생성된 logger instance를 반환하는 것이다.</p>
+<p>그래서 python logging은 계층적 구조를 가지고 있으며, singleton pattern이 네이티브하게 적용되어 있다고 할 수 있다.</p>
+<h3 id="결론-왜-이렇게-했을까---뇌피셜">결론. 왜 이렇게 했을까? - 뇌피셜</h3>
+<p>Singleton Pattern이니 다른 모듈의 이름을 가지고 호출하여도, 동일한 instance를 반환, 모듈 이름을 호출된 모듈에 따라 다르게 불러주면 안되나? 라고 생각하여 찾아보니 의외로 쉽게 답이 나왔다.</p>
+<p>Logging을 사용하는 전략의 경우 4가지 경우가 있다.</p>
+<ol>
+<li>모듈명 별로 logger 만들기</li>
+<li>객체인스턴스 별로 logger 만들기</li>
+<li>클래스명 별로 logger 만들기</li>
+<li>함수명 별로 logger 만들기</li>
+</ol>
+<p>만약 하나의 거대한 logger instance가 존재하고, 각각의 경우에 대비하여 modulename과 모듈, 객체인스턴스, 클래스명, 함수명 별로 mapping된 정보를 다 가져가게 된다면, singleton pattern이 적용된 객체에 너무 많은(굳이 공유될 필요가 없는) 정보들이 다 담기게 되어 설계상 이점이 없어지게 된다.</p>
+<p>Python의 logging은 구조적 계층을 통해, 필요한 formatter 정보는 공유하는 parent에 저장하고 각 logger는 singleton pattern에 맞춰 다양한 곳에서 reference 되도, 유일한 하나의 instance가 활용되게 하는 방식으로 logging이 이루어지게 되어 있다.</p>
+</article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://comnamu18.github.io">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="https://comnamu18.github.io/js/github-style.js"></script>
+
+
+
+</html>
