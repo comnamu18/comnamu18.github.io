@@ -152,9 +152,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Sun, 11 Apr 2021 14:45:41 &#43;0900"
+                  Modified <relative-time datetime="Sun, 11 Apr 2021 14:49:06 &#43;0900"
                     class="no-wrap">
-                    Sun, 11 Apr 2021 14:45:41 &#43;0900</relative-time>
+                    Sun, 11 Apr 2021 14:49:06 &#43;0900</relative-time>
                   
                 </div>
               </div>
@@ -224,11 +224,11 @@
     <span class="n">logger</span> <span class="o">=</span> <span class="n">getCustomLogger</span><span class="p">()</span>
     <span class="n">logger_id</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">logger</span><span class="p">))</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Initiating Logger : {logger_id}&#34;</span><span class="p">)</span>
-    <span class="n">testA</span><span class="o">.</span><span class="n">testA</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">testA</span><span class="o">.</span><span class="n">testA</span><span class="p">()</span>
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">testA</span><span class="o">.</span><span class="n">py</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="k">def</span> <span class="nf">testA</span><span class="p">(</span><span class="n">logger</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">testA</span><span class="p">():</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
     <span class="n">logger_id</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">logger</span><span class="p">))</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;testA Logger : {logger_id}&#34;</span><span class="p">)</span>
@@ -262,11 +262,11 @@ testA.py:6 - root - testA Logger : 0x7fbac5d4e340
     <span class="n">logger</span> <span class="o">=</span> <span class="n">getCustomLogger</span><span class="p">(</span><span class="s2">&#34;메인모듈&#34;</span><span class="p">)</span>
     <span class="n">logger_id</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">logger</span><span class="p">))</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Initiating Logger : {logger_id}&#34;</span><span class="p">)</span>
-    <span class="n">testA</span><span class="o">.</span><span class="n">testA</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">testA</span><span class="o">.</span><span class="n">testA</span><span class="p">()</span>
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">testA</span><span class="o">.</span><span class="n">py</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="k">def</span> <span class="nf">testA</span><span class="p">(</span><span class="n">logger</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">testA</span><span class="p">():</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&#34;테스트A&#34;</span><span class="p">)</span>
     <span class="n">logger_id</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">logger</span><span class="p">))</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;testA Logger : {logger_id}&#34;</span><span class="p">)</span>
