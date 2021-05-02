@@ -5,6 +5,10 @@
     <link>https://comnamu18.github.io/categories/</link>
     <description>Recent content in Categories on computer_namu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ko-kr</language><atom:link href="https://comnamu18.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>ko-kr</language>
+    
+	<atom:link href="https://comnamu18.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
   </channel>
 </rss>
